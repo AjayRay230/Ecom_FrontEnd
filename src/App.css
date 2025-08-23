@@ -1,0 +1,1347 @@
+body {
+  margin: 0; /* remove browser’s default body margin */
+  padding: 0; /* usually 0 by default, but safe to set */
+  color: #333333;         
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.header{
+  top:100%;
+}
+
+                         /* Navigation Bar Css */
+.nav{
+  width: 100%;
+  background:linear-gradient(90deg,#1a1a2e,#16213e);
+  color:white;
+  font-family: 'Segoe UI',sans-serif;
+  border-bottom: 1px solid #ddd;
+  position: sticky;
+  top:0;
+  z-index: 1000;
+  box-shadow: 0 4px 8px rgb(0,0 ,0,0.2);
+  justify-content: space-between;
+}
+.header{
+  max-width: 1300px;
+  margin:  auto;
+
+} 
+.navbar{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap:1rem;
+  /* flex-wrap: wrap; */
+  padding: 12px 12px;
+}                 
+.logo{
+  font-size: 1.5rem;
+  font-weight: bold;
+  color:#fff;
+  text-decoration: none;
+ transition: 0.3s;
+}  
+.logo:hover{
+  color:#00adb5;
+}     
+
+.navbar a{
+  color:white;
+  text-decoration: none;
+  margin:0 0.6rem;
+  font-size:1rem;
+  transition: color 0.2s ease-in-out;
+}
+.navbar a:hover{
+  color:#00adb5;
+}
+/* Container */
+.dropdown-categories {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown button */
+.dropbtn-categories {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 8px 12px;
+}
+
+/* Dropdown content */
+.dropdown-content-categories {
+  display: none;
+  position: absolute;
+  
+  background: #222831;
+  border-radius: 6px;
+  min-width: 180px;
+  border: 1px solid #ddd;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  padding: 8px 0;
+  z-index: 100;
+}
+
+/* Show on hover */
+.dropdown-categories:hover .dropdown-content-categories {
+  display: block;
+}
+
+/* Remove bullets */
+.dropdown-content-categories li {
+  list-style: none;
+}
+
+/* Style buttons */
+.dropdown-content-categories button {
+  background: none;
+  color: white;
+  width: 100%;
+  text-align: left;
+  padding: 0.6rem 1rem;
+  border: none;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+/* Hover effect */
+.dropdown-content-categories button:hover {
+  background: #00adb5;
+}
+
+
+.search-container{
+  display: flex;
+  position: relative;
+  background:#222831;
+  align-items: center;
+  border-radius: 20px;
+  padding: 6px 12px;
+  gap:8px;
+
+}
+.search-box{
+  width: 100%;
+  padding: 0.5rem 2rem 0.5rem 2.2rem;
+  border:none;
+  border-radius: 20px;
+  background: transparent;
+  outline: none;
+  padding: 4px;
+  font-size: 0.95rem;
+  width:180px;
+}
+.search-box:focus{
+  border-color:#0077cc;
+}
+.search-icons{
+  color:#aaa;
+}
+
+.list-group{
+  position: absolute;
+  top:110%;
+  left:0;
+  width:100%;
+  background: #222831;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 6px 12px rgb(0,0 ,0,0.25);
+  list-style: none;
+  padding: 0;
+  margin: 6px 0 0;
+  max-height: 220px;
+  overflow-y: auto;
+  z-index: auto;
+}
+.list-group-item{
+  padding: 10px;
+  transition: background 0.3s;
+}
+.list-group-item:hover{
+ background:#00adb5;
+}
+.search-result-link:hover{
+  color:#0077cc;
+}
+.no-result-msg{
+  padding: 0.8rem;
+  text-align: center;
+  color:#bbb;
+  font-size: 0.9rem;
+}
+
+.cart{
+  display: flex;
+  align-items: center;
+  gap:0.3rem;
+ padding: 6px 12px;
+ background: #00adb5;
+ border-radius: 20px;
+ transition: background 0.3s;
+}
+.cart:hover{
+ background: #007f89;
+}
+.user-menu{
+  position: relative;
+}
+.user-btn{
+  display: flex;
+  align-items: center;
+  gap:0.4rem;
+  background: none;
+  border:none;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+.user-btn:hover{
+  color:#00adb5;
+}
+
+.user-icon{
+  font-size: 1.2rem;
+  color:#0077cc
+}
+.user-name{
+  font-weight: 500;
+  color:#333;
+}
+.arrow{
+  font-size: 0.7rem;
+  margin-left: 0.2rem;
+
+}
+.user-dropdown{
+  position: absolute;
+  top:120%;
+  right:0;
+  background: #222831;
+  min-width: 160px;
+  border:1px solid #ddd;
+  border-radius: 6px;
+  box-shadow: 0 6px 12px rgb(0,0 ,0,0.25);
+  z-index: 100;
+}
+.user-dropdown li{
+  list-style: none;
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap:0.6rem;
+  transition: background 0.3s;
+}
+.user-dropdown li:hover{
+  background: #00adb5;
+}
+.menu-icon{
+  color:#0077cc;
+}
+.login-btn{
+  display: flex;
+  align-items: center;
+  gap:0.3rem;
+  background: #00adb5;
+  color:white;
+  padding: 0.4rem 0.9rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  transition: background 0.3s;
+}
+.login-btn:hover{
+  background: #007f89;
+}
+.light{
+  background-color: #ffffff;
+  color:#1f2937;
+  
+}
+.dark{
+  background-color: #1f2937;
+  color:#f9fafb;
+  
+}
+.toggle-btn{
+  
+  font-size: 1.5rem;
+  cursor: pointer;
+  background: none;
+  border:none;
+  color:#f7cf08;
+  transition: color 0.3s ease;
+}
+.toggle-btn:hover{
+  color:#ff9800;
+}
+@media(max-width:768px)
+{
+  .toggle-btn{
+    display: block;
+    margin-left: auto;
+  }
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    display: none; /* hidden until toggled */
+    width: 100%;
+    background: #1a1a1a;
+    padding: 10px;
+  }
+
+  .navbar.active {
+    display: flex;
+  }
+
+  .navbar a,
+  .navbar button {
+    width: 100%;
+    padding: 10px;
+    text-align: left;
+  }
+}
+.user-name {
+  margin-left: 8px;
+  font-weight: 500;
+  color: white;
+  font-size: 0.95rem;
+  transition: color 0.3s ease;
+}
+
+.user-name:hover {
+  color: #ff9800;
+}
+
+                                        /* Home Page CSS  */
+
+ /* === GRID LAYOUT === */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* === NO PRODUCTS STATE === */
+.grid .no-products {
+  grid-column: 1 / -1; /* span full width */
+  text-align: center;
+  color: #555;
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-top: 4rem;
+  opacity: 0.9;
+}
+
+/* === CARD STYLING === */
+.card {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-decoration: none;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* === CARD BODY === */
+.card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+/* === IMAGE === */
+.card-body img {
+  border-radius: 12px;
+  margin-bottom: 1rem;
+}
+
+/* === NAME & BRAND === */
+.card-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0;
+  color: #333;
+}
+
+.card-brand {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.brand-tag {
+  font-style: normal;
+  font-weight: 500;
+  color: #0077ff;
+}
+
+/* === PRICE === */
+.card-text {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #222;
+  margin: 0.5rem 0;
+}
+
+/* === BUTTON === */
+.btn {
+  width: 100%;
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-primery {
+  background: #0077ff;
+  color: #fff;
+}
+
+.btn-primery:hover {
+  background: #005fd4;
+}
+
+.btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+/* === ERROR CONTAINER === */
+.error-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70vh;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.error-container img {
+  width: 120px;
+  height: 120px;
+  opacity: 0.8;
+}
+
+.error-container p {
+  font-size: 1.2rem;
+  color: #444;
+  font-weight: 500;
+}
+
+/* === RESPONSIVE FIX === */
+@media (max-width: 600px) {
+  .grid {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+  }
+
+  .card-body img {
+    height: 200px;
+  }
+}
+                                       
+                                /* Product Page CSS */
+/* === PRODUCT CARD CONTAINER === */
+.product-card {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  max-width: 1100px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+}
+
+/* === IMAGE SECTION === */
+.product-image {
+  flex: 1 1 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.product-image img {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  border-radius: 12px;
+  object-fit: cover;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* === DETAILS SECTION === */
+.column {
+  flex: 1 1 55%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* === PRODUCT DESCRIPTION === */
+.product-description h2 {
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #222;
+}
+
+.product-description h5 {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #555;
+  margin: 0.3rem 0;
+}
+
+.product-description p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #444;
+  margin: 1rem 0;
+}
+
+/* === PRICE & CART SECTION === */
+.price {
+  margin: 1rem 0;
+}
+
+.price span {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #1976d2;
+}
+
+/* === CART BUTTON === */
+.cart-btn {
+  margin-top: 1rem;
+  width: 100%;
+  max-width: 220px;
+  padding: 0.8rem 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.cart-btn:hover {
+  background: #145cab;
+}
+
+.cart-btn.disable-btn {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+/* === STOCK INFO === */
+.price h5 {
+  margin-top: 0.8rem;
+  font-weight: 500;
+}
+
+/* === ACTION BUTTONS (Update/Delete) === */
+.get-btn {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.update-btn,
+.delete-btn {
+  flex: 1;
+  padding: 0.7rem 1rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.update-btn {
+  background: #4caf50;
+  color: #fff;
+}
+
+.update-btn:hover {
+  background: #3e8e41;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.delete-btn {
+  background: #f44336;
+  color: #fff;
+}
+
+.delete-btn:hover {
+  background: #c62828;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+/* === RESPONSIVE DESIGN === */
+@media (max-width: 768px) {
+  .product-card {
+    flex-direction: column;
+    padding: 1.5rem;
+  }
+
+  .product-image img {
+    max-width: 100%;
+    margin-bottom: 1.5rem;
+  }
+
+  .column {
+    flex: 1 1 100%;
+  }
+
+  .cart-btn {
+    max-width: 100%;
+  }
+}
+
+
+
+ .cart-container{
+  
+   padding:40px 60px;
+  margin:100px;
+ }
+ .shopping-cart{
+  display: inline-block;
+  justify-content: space-between;
+  align-items: center;
+  display: center;
+  font-weight: bolder;
+  
+  
+ }
+ .title{
+  margin-bottom:40x;
+  color:#333333;
+
+ }
+ .total{
+  text-align: center;
+  margin-top:20px;
+  margin-bottom:20px;
+ }
+ .checkout-btn{
+  background-color: #1976d2;
+  cursor: pointer;
+ }
+.container{
+  min-height: 100vh;
+  display: flex;
+ justify-content: center;
+ align-items: center;
+ 
+  padding:40px 20px;
+  
+  
+  background-color: #f4f4f4;
+  
+  overflow-y: auto;
+}
+.form{
+  width:100%;
+  max-width: 600px;
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(0,0,0,0.1);
+
+}
+.form label{
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color:#888;
+}
+.form input, .form select{
+ width:100%;
+ padding: 10px 12px;
+ margin-bottom: 18px;
+ border: 1px solid #ccc;
+ border-radius: 6px;
+ font-size: 14px;
+
+}
+.form input[type = "checkbox"]
+{
+ height:20px;
+ width:20px;
+  padding:10px;
+}
+.container input::placeholder{
+  color:#888;
+}
+.check-div{
+  display: inline-flex;
+  justify-content: space-between;
+
+}
+.availabel-label{
+  margin-right:10px;
+}
+.submit-div{
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+.submit-btn{
+ background-color: #007bff;
+  color: #ffffff;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 15px;
+  transition: background 0.3s;
+  width:100%;
+
+}
+.submit-btn:hover{
+  background-color: #0056b3;
+}
+.text-center{
+  margin-left: 400px;
+  margin-top: 100px;
+  text-align: center;
+  display: block;
+
+}
+.card-body img{
+  height:70px;
+
+
+}
+                                                   /* LoginForm Css */
+.login-container{
+  display: flex;
+  justify-content:center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f2f6fc;
+  
+}  
+.login-container select{
+  padding: 10px;
+  border-radius: 8px;
+  border:1px solid #ddd;
+
+}
+.login-container select:focus{
+  border-color: #007bff;
+  outline: none;
+}
+.loginForm{
+  background-color: #ffffff;
+  padding:2rem 2.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  width:300px;
+  display: flex;
+  flex-direction: column;
+  gap:1.2rem;
+}   
+.loginForm input{
+  padding:0.75rem 1rem;
+  font-size: 1rem;
+  border:1px solid #ccc;
+  border-radius: 0.5rem;
+  transition: border-color 0.3s ease;
+}                                
+.loginForm input:focus{
+  border-color: #007bff;
+  outline: none;
+}
+.loginForm button{
+  padding: 0.75rem;
+  background-color: #007bff;
+  color:white;
+  font-weight: bold;
+  border:none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.loginForm button:hover{
+  background-color: #0056b3;
+}
+.login-page-header{
+  display:flex ;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 1.5rem;
+ color:#02baa2;
+ cursor: pointer;
+}
+.login-page-header:hover{
+  color:#087a6b;
+}
+.reg-header{
+  text-align: center;
+
+}
+.reg-header h2{
+  color:#02baa2;
+ cursor: pointer;
+}
+.reg-header h2:hover{
+  color:#087a6b;
+}
+.termsCondition-label {
+  color: red !important;
+  
+  display: block;
+  margin-top: 5px;
+  
+
+}
+                     /* AddUser Form Css */
+.add-user-container {
+  max-width: 400px;
+  margin: 50px auto;
+  background: #ffffff;
+  padding: 25px 30px;
+  border-radius: 10px;
+  box-shadow: 0px 5px 15px rgba(0,0,0,0.1);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.add-user-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333333;
+}
+
+.add-user-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.add-user-form label {
+  margin-bottom: 15px;
+  font-weight: 500;
+  color: #444444;
+}
+
+.add-user-form input,
+.add-user-form select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #cccccc;
+  border-radius: 6px;
+  font-size: 14px;
+  margin-top: 5px;
+  transition: border 0.3s;
+}
+
+.add-user-form input:focus,
+.add-user-form select:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.add-user-form button {
+  background-color: #007bff;
+  color: #ffffff;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 15px;
+  transition: background 0.3s;
+}
+
+.add-user-form button:hover {
+  background-color: #0056b3;
+}
+
+.message {
+  margin-top: 15px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.message:empty {
+  display: none;
+}
+                                          /* UserList compo. CSS */
+.userlist-container {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.userlist-header {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #1e293b;
+  font-weight: 600;
+}
+
+.userlist-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.userlist-table thead {
+  background: #0f172a;
+  color: #ffffff;
+}
+
+.userlist-table th, 
+.userlist-table td {
+  padding: 12px 16px;
+  text-align: left;
+  font-size: 0.95rem;
+}
+
+.userlist-table th {
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.userlist-table tbody tr {
+  border-bottom: 1px solid #e2e8f0;
+  transition: background 0.2s ease-in-out;
+}
+
+.userlist-table tbody tr:hover {
+  background: #f8fafc;
+}
+
+.userlist-table td {
+  color: #334155;
+}
+
+.loading-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #475569;
+  padding: 20px;
+}
+
+.spinner-icons {
+  margin-left: 8px;
+  animation: spin 1s linear infinite;
+  font-size: 1.2rem;
+  color: #0f172a;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+                                  /* Remove User Compo CSS */
+.RemoveUser-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.remove-header {
+  font-size: 1.6rem;
+  font-weight: 600;
+  text-align: center;
+  color: #1e293b;
+  margin-bottom: 20px;
+}
+
+.RemoveUser-container ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.RemoveUser-container li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f8fafc;
+  padding: 12px 16px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.RemoveUser-container li:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  background: #ffffff;
+}
+
+.removeUser-btn {
+  background: #ef4444;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.removeUser-btn:hover {
+  background: #dc2626;
+}
+
+.removeUser-btn:active {
+  transform: scale(0.95);
+}
+                        /* AdminDashBoard CSS */
+/* Dropdown container */
+.dropdown-admin {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown button */
+.dropbtn-admin {
+  background: none;
+  border: none;
+  color: white; /* White text for button */
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 8px 12px;
+}
+
+/* Dropdown content (hidden by default) */
+.dropdown-content-admin {
+  display: none;
+  position: absolute;
+  background-color: #222831; /* Dark background */
+  min-width: 180px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+  z-index: 1000;
+  padding: 8px 0;
+}
+
+/* Show dropdown on hover */
+.dropdown-admin:hover .dropdown-content-admin {
+  display: block;
+}
+
+/* Links inside dropdown */
+.dropdown-content-admin a {
+  display: block;
+  padding: 10px 14px;
+  text-decoration: none;
+  color: white; /* White text */
+  font-size: 0.95rem;
+  transition: background 0.3s ease;
+  border-radius: 6px;
+}
+
+/* Hover effect for links */
+.dropdown-content-admin a:hover {
+  background-color: #00adb5; /* Teal hover like categories */
+  color: white;
+}
+                              /* Shopping Cart CSS */
+
+/* Cart Container */
+.cart-container {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+}
+
+/* Shopping Cart Box */
+.shopping-cart {
+  width: 100%;
+  max-width: 800px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Title */
+.shopping-cart .title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+}
+
+/* Empty Cart */
+.empty {
+  text-align: center;
+  color: #777;
+  font-size: 1.2rem;
+  padding: 2rem 0;
+}
+
+/* Cart Items */
+.cart-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #eee;
+}
+
+.cart-item img {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* Brand & Product Details */
+.brand-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  font-size: 0.9rem;
+}
+
+.brand-details span:first-child {
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+/* Quantity Controls */
+.quantity {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.quantity button {
+  background: #f0f0f0;
+  border: none;
+  padding: 0.4rem 0.6rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.quantity button:hover {
+  background: #ddd;
+}
+
+.quantity input {
+  width: 40px;
+  text-align: center;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 0.3rem;
+  font-size: 0.9rem;
+}
+
+/* Price */
+.price {
+  font-weight: bold;
+  font-size: 1rem;
+  min-width: 80px;
+  text-align: right;
+}
+
+/* Remove Button */
+.remove-btn {
+  background: transparent;
+  border: none;
+  color: #e74c3c;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.remove-btn:hover {
+  transform: scale(1.2);
+  color: #c0392b;
+}
+
+/* Total Section */
+.total {
+  text-align: right;
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+/* Checkout Button */
+.checkout-btn {
+  display: block;
+  margin: 1.5rem auto 0;
+  background: #2ecc71;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.checkout-btn:hover {
+  background: #27ae60;
+  transform: scale(1.05);
+}
+
+
+                                  /* CheckOut POP shopping Cart CSS */
+/* Popup Background */
+.checkout-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  width: 90%;
+  max-width: 500px;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+  padding: 1.5rem;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Header */
+.checkout-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.checkout-header h2 {
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+.close-btn {
+  background: transparent;
+  border: none;
+  color: #e74c3c;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.close-btn:hover {
+  transform: scale(1.2);
+}
+
+/* Items */
+.checkout-items {
+  max-height: 250px;
+  overflow-y: auto;
+  margin-bottom: 1rem;
+}
+
+.checkout-item {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.8rem;
+}
+
+.checkout-item img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.item-details {
+  font-size: 0.9rem;
+}
+
+.checkout-total {
+  text-align: right;
+  font-size: 1.2rem;
+  margin-top: 1rem;
+}
+
+/* Actions */
+.checkout-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+
+.cancel-btn {
+  background: #f0f0f0;
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.cancel-btn:hover {
+  background: #ddd;
+}
+
+.confirm-btn {
+  background: #2ecc71;
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.confirm-btn:hover {
+  background: #27ae60;
+  transform: scale(1.05);
+}
+
+/* Fade in animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translate(-50%, -45%); }
+  to { opacity: 1; transform: translate(-50%, -50%); }
+}
