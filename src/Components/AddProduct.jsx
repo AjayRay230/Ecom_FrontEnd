@@ -54,7 +54,7 @@ formData.append("product", JSON.stringify(productData));
 
   try {
     const response = await axios.post(
-      "https://ecom-backend-rt2i.onrender.com/api/product/add",
+      `https://ecom-backend-rt2i.onrender.com/api/product/add`,
       formData,
       {
         headers: {
