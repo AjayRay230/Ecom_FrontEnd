@@ -20,7 +20,7 @@ useEffect(() => {
     console.log("token user :" ,token);
     try {
       const res = await axios.get(
-        `https://ecom-backend-rt2i.onrender.com/user/id/${user.userId}`,
+        `https://ecom-backend-rt2i.onrender.com/api/user/id/${user.userId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
