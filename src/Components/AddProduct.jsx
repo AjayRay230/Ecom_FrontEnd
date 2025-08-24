@@ -92,7 +92,7 @@ formData.append("product", JSON.stringify(productData));
         
         <div className="master-container">
             <div className="container">
-                <form className="form" onSubmit={handleSubmit}>
+                <form className="form" onSubmit={handleSubmit}  encType="multipart/form-data" >
                     <div className="name-div">
                         <label className="label-name">
                             <h6>Name</h6>
