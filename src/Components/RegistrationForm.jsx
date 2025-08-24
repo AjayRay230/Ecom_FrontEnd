@@ -43,7 +43,7 @@ const RegistrationForm = ({OnRegister})=>{
         }
         try{
 
-            const res =    await axios.post(`https://ecom-backend-rt2i.onrender.com/user/register`,payload,
+            const res =    await axios.post(`https://ecom-backend-rt2i.onrender.com/api/user/register`,payload,
                
             );
             login(res.data);
