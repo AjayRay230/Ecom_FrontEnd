@@ -49,7 +49,10 @@ const handleSubmit = async (event) => {
   // Create FormData for multipart request
   const formData = new FormData();
   formData.append("imageFile", image);
-formData.append("product", JSON.stringify(productData));
+formData.append(
+  "product",
+  new Blob([JSON.stringify(productData)], { type: "application/json" })
+);
 
 
   try {
