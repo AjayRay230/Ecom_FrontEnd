@@ -4,238 +4,194 @@ import CheckOutPop from "./CheckOutPop";
 import { useContext, useEffect, useState } from "react";
 import { FaPlus, FaMinus, FaTrash } from "react-icons/fa";
 import { toast } from "react-toastify";
-const CART =()=>{
-const {cart,removeFromCart,clearCart} = useContext(MyContext);
-const[cartItems,SetCartItems] = useState([]);
-const[totalPrice,setTotalPrice] = useState(0);
-const[cartImage,setCartImage] = useState([]);
-const[showModal,setShowModal] = useState(false);
 
-useEffect(()=>{
+const CART = () => {
+  const { cart, removeFromCart, clearCart } = useContext(MyContext);
+  const [cartItems, SetCartItems] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [showModal, setShowModal] = useState(false);
 
-const fetchImagesAndUpdateCart = async()=>{
-    const token = localStorage.getItem("token");
-    // for debugging purpose
-    console.log("cart",cart);
-    try{
-        const response = await axios.get(`https://ecom-backend-rt2i.onrender.com/api/product`,
-            {
-                
-                headers:{
-                    "Authorization":`Bearer ${token}`
-                }
-            }
+  useEffect(() => {
+    const fetchImagesAndUpdateCart = async () => {
+      try {
+        // Fetch backend products
+        const response = await axios.get(`https://ecom-backend-rt2i.onrender.com/api/product`,{
+          headers:{
+            Authorization:`Bearer ${localStorage.getItem("token")}`
+          }
+        });
+        const backEndProductId = response.data.map((product) => product.id);
+
+        const updatedCartItems = cart.filter((item) =>
+          backEndProductId.includes(item.id)
         );
-        const backEndProductId = response.data.map((product)=>product.id);
-        const updatedCartItems = cart.filter((item)=>backEndProductId.includes(item.id));
+
+        // Attach images 
         const cartItemsWithImages = await Promise.all(
-            updatedCartItems.map(async (item)=>
-            {
-                try{
-                    const response = await axios.get(`https://ecom-backend-rt2i.onrender.com/product/${item.id}/image`, 
-                        {
-                            responseType:"blob"
-                            ,headers:{
-                                "Authorization":`Bearer ${token}`
-                            }
-                        });
-                    // const imageFile = await convertUrlToFile(response.data,response.data.imageName);
-                    // setCartImage(imageFile);
-                    const imageUrl = URL.createObjectURL(response.data);
-                    return {...item,imageUrl};
-                }
-                catch(error)
-                {
-                    console.error("Error fetching image",error);
-                    return {...item,imageUrl:"/placeholder.png"};
-                }
-            })
+          updatedCartItems.map(async (item) => {
+            try {
+              const res = await axios.get(
+                `https://ecom-backend-rt2i.onrender.com/api/product/${item.id}/image`
+              );
+              return { ...item, imageUrl: res.data };
+            } catch (error) {
+              console.error("Error fetching image", error);
+              return { ...item, imageUrl: "/placeholder.png" };
+            }
+          })
         );
+
         SetCartItems(cartItemsWithImages);
-        
-        
+      } catch (error) {
+        console.error("Error while fetching product data", error);
+      }
+    };
 
-
+    if (cart.length) {
+      fetchImagesAndUpdateCart();
     }
-    catch(error)
-    {
-        console.error("Error whilte fetching product data",error);
-    }
-};
-if(cart.length)
-{
-    fetchImagesAndUpdateCart();
-}
+  }, [cart]);
 
-},[cart]);
-
-//to set the total price in the cart 
-useEffect(()=>
-{
-    // .reduce() method to sum the total price
-    //  of all items in the cart.
-const total = (cartItems || []).reduce((acc, item) => {
-  if (!item || !item.price || !item.quantity) return acc;
-  return acc + item.price * item.quantity;
-}, 0);
-//  acc stands for accumulator.
-
-// It's a variable that accumulates the result of the calculation.
-
-// In this case, it keeps a running total of the cart price.
+  // Calculate total price
+  useEffect(() => {
+    const total = (cartItems || []).reduce((acc, item) => {
+      if (!item || !item.price || !item.quantity) return acc;
+      return acc + item.price * item.quantity;
+    }, 0);
     setTotalPrice(total);
+  }, [cartItems]);
 
-},[cartItems]);
-
-const convertUrlToFile = async(blobData,fileName)=>{
-    const file = new File([blobData],fileName,{type:blobData.type});
-    return file;
-}
-const handleIncreaseQuantity = (itemId)=>{
-    const newCartItems = cartItems.map((item)=>{
-        if(item.id===itemId)
-        {
-            if(item.quantity<item.stockQuantity)
-            {
-                return {...item,quantity:item.quantity+1};
-            }
-            else{
-                toast.info("cannot add more the avialable quantity");
-            }
-           
+  const handleIncreaseQuantity = (itemId) => {
+    const newCartItems = cartItems.map((item) => {
+      if (item.id === itemId) {
+        if (item.quantity < item.stockQuantity) {
+          return { ...item, quantity: item.quantity + 1 };
+        } else {
+          toast.info("Cannot add more than available quantity");
         }
-         return item;
-        
+      }
+      return item;
     });
     SetCartItems(newCartItems);
-}
-const handleDereasedQuantity = async(itemId)=>
-{
-    const newCartItems = cartItems.map((item)=>
-    item.id===itemId ? {...item,quantity:Math.max(item.quantity-1,1)}:item
-);
-SetCartItems(newCartItems);
-}
-const handleremoveFromCart = async(itemId)=>
-{
-    removeFromCart(itemId);
-    const newCartItems = cartItems.filter((items)=>
-      items.id!==itemId
+  };
+
+  const handleDereasedQuantity = (itemId) => {
+    const newCartItems = cartItems.map((item) =>
+      item.id === itemId
+        ? { ...item, quantity: Math.max(item.quantity - 1, 1) }
+        : item
     );
     SetCartItems(newCartItems);
-}
-const handleCheckOut = async()=>
-{
+  };
+
+  const handleremoveFromCart = (itemId) => {
+    removeFromCart(itemId);
+    const newCartItems = cartItems.filter((items) => items.id !== itemId);
+    SetCartItems(newCartItems);
+  };
+
+  const handleCheckOut = async () => {
     const token = localStorage.getItem("token");
-    try{
-    for(const items of cartItems){
-            const {imageUrl,imageName,imageData,imageType,quantity,...rest} = items;
-            const updatedStockQuantity = items.stockQuantity - items.quantity;
-            const updatedProductData = {...rest,stockQuantity:updatedStockQuantity};
-            const CartProduct = new FormData();
-          //  CartProduct.append("imageFile",cartImage);
-            CartProduct.append("product",new Blob([JSON.stringify(updatedProductData),{type:"application/json"}]) );
-            await axios.put(`https://ecom-backend-rt2i.onrender.com/api/product/${items.id}`,CartProduct,
-               { header:{
-                    "Content-Type" : "multipart/form-data",
+    try {
+      for (const items of cartItems) {
+        const { imageUrl, quantity, ...rest } = items;
+        const updatedStockQuantity = items.stockQuantity - items.quantity;
+        const updatedProductData = { ...rest, stockQuantity: updatedStockQuantity };
 
-                },
-                headers:{
-                    "Authorization":`Bearer ${token}`
-                }
-            }
-            ).then((response)=>
-            {
-                console.log("Proudct updated successfully: ",(CartProduct));
-            }).catch((error)=>{
-                console.error("Error while updating product :" ,error);
-            });
+        await axios.put(
+          `https://ecom-backend-rt2i.onrender.com/api/product/${items.id}`,
+          updatedProductData,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+      }
+      clearCart();
+      SetCartItems([]);
+      setShowModal(false);
+    } catch (error) {
+      console.log("Error while checkout:", error);
     }
-    clearCart();
-    SetCartItems([]);
-    setShowModal(false);
+  };
 
+  return (
+    <div className="cart-container">
+      <div className="shopping-cart">
+        <div className="title">Shopping Bag</div>
 
-}
-    catch(error){
-        console.log("error while checkot :",error);
-    }
-}
-
-    return(
-
-
-<div className="cart-container">
-  <div className="shopping-cart">
-    <div className="title">Shopping Bag</div>
-
-    {cartItems.length === 0 ? (
-      <div className="empty">
-        <h4>Cart is Empty</h4>
-      </div>
-    ) : (
-      <>
-        {cartItems?.filter((item)=>item)
-        .map((item) => (
-          <div key={item.id} className="cart-item">
-            {/* Product Image */}
-            <img src={item.imageUrl || "/placeholder.png"}
-             alt={item.name  || "No name"} 
-             onError={(e)=>(e.target.src = "/placeholder.png")}
-             />
-
-            {/* Brand & Name */}
-            <div className="brand-details">
-              <span>{item.brand}</span>
-              <span>{item.name}</span>
-            </div>
-
-            {/* Quantity Controls */}
-            <div className="quantity">
-              <button onClick={() => handleDereasedQuantity(item.id)}>
-                <FaMinus />
-              </button>
-              <input type="text" value={item.quantity} readOnly />
-              <button onClick={() => handleIncreaseQuantity(item.id)}>
-                <FaPlus />
-              </button>
-            </div>
-
-            {/* Price */}
-            <div className="price">
-              ${(item.price * item.quantity).toFixed(2)}
-            </div>
-
-            {/* Remove Button */}
-            <button
-              onClick={() => handleremoveFromCart(item.id)}
-              className="remove-btn"
-            >
-              <FaTrash />
-            </button>
+        {cartItems.length === 0 ? (
+          <div className="empty">
+            <h4>Cart is Empty</h4>
           </div>
-        ))}
+        ) : (
+          <>
+            {cartItems
+              ?.filter((item) => item)
+              .map((item) => (
+                <div key={item.id} className="cart-item">
+                  {/* Product Image */}
+                  <img
+                    src={item.imageUrl || "/placeholder.png"}
+                    alt={item.name || "No name"}
+                    onError={(e) => (e.target.src = "/placeholder.png")}
+                  />
 
-        {/* Cart Total */}
-        <div className="total">Total: ${totalPrice}</div>
+                  {/* Brand & Name */}
+                  <div className="brand-details">
+                    <span>{item.brand}</span>
+                    <span>{item.name}</span>
+                  </div>
 
-        {/* Checkout Button */}
-        <button className="checkout-btn" onClick={() => setShowModal(true)}>
-          CheckOut
-        </button>
-      </>
-    )}
-  </div>
+                  {/* Quantity Controls */}
+                  <div className="quantity">
+                    <button onClick={() => handleDereasedQuantity(item.id)}>
+                      <FaMinus />
+                    </button>
+                    <input type="text" value={item.quantity} readOnly />
+                    <button onClick={() => handleIncreaseQuantity(item.id)}>
+                      <FaPlus />
+                    </button>
+                  </div>
 
-  {/* Checkout Modal */}
-  <CheckOutPop
-    show={showModal}
-    handleClose={() => setShowModal(false)}
-    cartItems={cartItems}
-    totalPrice={totalPrice}
-    handleCheckout={handleCheckOut}
-  />
-</div>
-    )
-}
-export default CART
+                  {/* Price */}
+                  <div className="price">
+                    ${(item.price * item.quantity).toFixed(2)}
+                  </div>
+
+                  {/* Remove Button */}
+                  <button
+                    onClick={() => handleremoveFromCart(item.id)}
+                    className="remove-btn"
+                  >
+                    <FaTrash />
+                  </button>
+                </div>
+              ))}
+
+            {/* Cart Total */}
+            <div className="total">Total: ${totalPrice}</div>
+
+            {/* Checkout Button */}
+            <button className="checkout-btn" onClick={() => setShowModal(true)}>
+              CheckOut
+            </button>
+          </>
+        )}
+      </div>
+
+      {/* Checkout Modal */}
+      <CheckOutPop
+        show={showModal}
+        handleClose={() => setShowModal(false)}
+        cartItems={cartItems}
+        totalPrice={totalPrice}
+        handleCheckout={handleCheckOut}
+      />
+    </div>
+  );
+};
+
+export default CART;

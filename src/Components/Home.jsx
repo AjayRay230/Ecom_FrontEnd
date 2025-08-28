@@ -1,67 +1,29 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import MyContext from "../Context/MyContext";
-import { Link } from "react-router-dom";
 import unplugged from "../assets/unplugged.png";
 
 const Home = ({ selectedCategory }) => {
   const { data, isError, refreshData, AddToCart } = useContext(MyContext);
-  const [isDataFetched, setIsDataFetched] = useState(false);
   const [products, setProducts] = useState([]);
   const hasFetchedData = useRef(false);
+  const navigate = useNavigate();
 
-  // Fetch main product data
- useEffect(() => {
-  const token = localStorage.getItem("token");
-  if (!hasFetchedData && token){ 
-    hasFetchedData = true;
-    refreshData(); // Wait until token exists
-  }
+  // Fetch products 
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!hasFetchedData.current && token) {
+      hasFetchedData.current = true;
+      refreshData();
+    }
+  }, [refreshData]);
 
-}, [refreshData]);
-
-
-  // Fetch product images
- // Fetch main product data when token is available
-
-
-// Fetch product images after data is loaded
-useEffect(() => {
-  const token = localStorage.getItem("token");
-  if (!token || !Array.isArray(data) || data.length === 0) return;
-
-  const fetchImageAndUpdateProducts = async () => {
-    console.log("product token ->", token);
-    const updatedProducts = await Promise.all(
-      data.map(async (product) => {
-        try {
-          const response = await axios.get(
-            `https://ecom-backend-rt2i.onrender.com/api/product/${product.id}/image`,
-            {
-              responseType: "blob",
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
-          const imageUrl = URL.createObjectURL(response.data);
-          return { ...product, imageUrl };
-        } catch (error) {
-          console.log(
-            "Error while fetching the image for product ID :",
-            product.id,
-            error
-          );
-          return { ...product, imageUrl: "placeholder-image-url" };
-        }
-      })
-    );
-    setProducts(updatedProducts);
-  };
-
-  fetchImageAndUpdateProducts();
-}, [data]);
-
+  // Update state when data changes
+  useEffect(() => {
+    if (Array.isArray(data) && data.length > 0) {
+      setProducts(data);
+    }
+  }, [data]);
 
   // Filter products by category if selected
   const filteredProducts = selectedCategory
@@ -85,23 +47,28 @@ useEffect(() => {
 
   return (
     <>
-     {isError ? (
-      <div className="error-container">
-        <img src={unplugged} alt="Error" />
-        <p>Something went wrong. Please try again later.</p>
-      </div>):(
-      <div className="grid">
-        {filteredProducts.length === 0 ? (
-          <h2>No Products Available</h2>
-        ) : (
-          filteredProducts.map((product) => {
-            const { id, brand, name, price, available, imageUrl } = product;
-            return (
-              <div className="card" key={id}>
-                <Link to={`/product/${id}`} style={{}}>
-                  <div className="card-body" style={{}}>
+      {isError ? (
+        <div className="error-container">
+          <img src={unplugged} alt="Error" />
+          <p>Something went wrong. Please try again later.</p>
+        </div>
+      ) : (
+        <div className="grid">
+          {filteredProducts.length === 0 ? (
+            <h2>No Products Available</h2>
+          ) : (
+            filteredProducts.map((product) => {
+              const { id, brand, name, price, available, imageUrl } = product;
+              return (
+                <div
+                  className="card"
+                  key={id}
+                  onClick={() => navigate(`/product/${id}`)} // ✅ card click navigates
+                  style={{ cursor: "pointer" }}
+                >
+                  <div className="card-body">
                     <img
-                      src={imageUrl}
+                      src={imageUrl || "https://placehold.co/300x200"}
                       alt={name}
                       style={{
                         width: "100%",
@@ -123,7 +90,7 @@ useEffect(() => {
                       <button
                         className="btn btn-primery"
                         onClick={(e) => {
-                          e.preventDefault();
+                          e.stopPropagation(); 
                           AddToCart(product);
                         }}
                         disabled={!available}
@@ -132,14 +99,12 @@ useEffect(() => {
                       </button>
                     </div>
                   </div>
-                </Link>
-              </div>
-            );
-          })
-        )}
-        
-      </div>
-)}
+                </div>
+              );
+            })
+          )}
+        </div>
+      )}
     </>
   );
 };

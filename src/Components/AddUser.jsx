@@ -8,7 +8,7 @@ export default function AddUser() {
   });
   const [message, setMessage] = useState("");
 
-  const token = localStorage.getItem("token"); // Assuming admin token is stored here
+  const token = localStorage.getItem("token"); 
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });

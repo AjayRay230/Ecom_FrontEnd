@@ -1345,3 +1345,123 @@ body {
   from { opacity: 0; transform: translate(-50%, -45%); }
   to { opacity: 1; transform: translate(-50%, -50%); }
 }
+                                    /* SearchResults CSS */
+/* Container for the entire search results page */
+.sr-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Heading */
+.sr-container h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+/* Grid layout for product cards */
+.sr-products {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 20px;
+}
+
+/* Individual product card */
+.sr-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    text-align: center;
+    transition: box-shadow 0.3s ease;
+    cursor: pointer;
+    min-height: 280px;
+}
+
+.sr-card:hover {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Link inside product card */
+.sr-card a {
+    color: inherit;
+    text-decoration: none;
+    display: block;
+    padding: 10px;
+}
+
+/* Product image */
+.sr-card img {
+    width: 100%;
+    height: 180px;        
+    object-fit: cover;    
+    border-bottom: 1px solid #eee;
+    margin-bottom: 10px;
+    transition: transform 0.3s ease;
+}
+
+.sr-card img:hover {
+    transform: scale(1.05);
+}
+
+/* Product name */
+.sr-name {
+    font-weight: 500;
+    font-size: 16px;
+    margin: 5px 0;
+    height: 40px;
+    overflow: hidden;
+}
+
+/* Product price */
+.sr-price {
+    color: #ff4d4f;
+    font-weight: 600;
+    font-size: 14px;
+    margin: 0;
+}
+
+/* Load More button */
+.sr-load-more {
+    margin: 20px auto;
+    display: block;
+    padding: 10px 20px;
+    font-size: 14px;
+    background-color: #ff4d4f;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.sr-load-more:hover {
+    background-color: #e04345;
+    transform: translateY(-2px);
+}
+
+/* Shimmer effect for loading */
+@keyframes shimmer {
+    0% { background-position: -200px 0; }
+    100% { background-position: 200px 0; }
+}
+
+.sr-card.shimmer {
+    background: #f6f7f8;
+    background-image: linear-gradient(90deg, #f6f7f8 0px, #eaeaea 40px, #f6f7f8 80px);
+    background-size: 200px 100%;
+    animation: shimmer 1.5s infinite linear;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .sr-products {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    }
+
+    .sr-card img {
+        height: 150px;
+    }
+}

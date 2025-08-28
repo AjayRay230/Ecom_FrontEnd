@@ -4,15 +4,15 @@ import axios from "axios";
 import {useState}  from "react";
 import { toast } from "react-toastify";
 const AddProduct = ()=>{
-const[product,setProduct] = useState({
-    name: "",
-    brand: "",
-    description: "",
-    price: "",
-    category: "",
-    quantity: "",
-    releaseDate: "",
-    available: false,
+const [product, setProduct] = useState({
+  name: "",
+  brand: "",
+  description: "",
+  price: 0,
+  category: "",
+  quantity: 0,
+  releaseDate: "",
+  available: false,
 });
 const[image,setImage] = useState(null);
 const handleInputChange = (e)=>
@@ -27,63 +27,80 @@ const handleImageChange = (e)=>
 const handleSubmit = async (event) => {
   event.preventDefault();
 
-  if (!image) {
-    toast.warn("Please select an image file");
-    return;
-  }
-
   const token = localStorage.getItem("token");
   if (!token) {
     toast.error("You are not logged in");
     return;
   }
 
-  // Convert numeric fields to proper types
-  const productData = {
-    ...product,
-    price: Number(product.price),
-    quantity: Number(product.quantity),
-    available: Boolean(product.available),
-  };
-
-  // Create FormData for multipart request
-  const formData = new FormData();
-  formData.append("imageFile", image);
-formData.append("product", JSON.stringify(productData));
-
+  if (!image) {
+    toast.warn("Please upload an image first");
+    return;
+  }
 
   try {
-    const response = await axios.post(
-      `https://ecom-backend-rt2i.onrender.com/api/product/add`,
-      formData,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`, // Let Axios set Content-Type automatically
-        },
-      }
-    );
+    // 1. Upload image
+    const imgForm = new FormData();
+    imgForm.append("file", image);
 
-    console.log("Product added successfully:", response.data);
-    toast.success("Product added successfully");
-    // Optionally reset form
+    const imgRes = await fetch("https://ecom-backend-rt2i.onrender.com/api/images/upload", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}` // no Content-Type here!
+      },
+      body: imgForm,
+    });
+
+    if (!imgRes.ok) throw new Error("Image upload failed");
+
+    const imgData = await imgRes.json();
+    const imageUrl = imgData.url;
+
+    // 2. Prepare product DTO exactly as backend expects
+    const productPayload = {
+      name: product.name,
+      brand: product.brand,
+      description: product.description,
+      price: product.price,
+      category: product.category,
+      quantity: product.quantity,
+      releaseDate: product.releaseDate,
+      available: product.available,
+      imageUrl: imageUrl   
+    };
+
+    const res = await fetch("https://ecom-backend-rt2i.onrender.com/api/product/add", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(productPayload),
+    });
+
+    if (!res.ok) {
+      const errMsg = await res.text();
+      throw new Error(errMsg);
+    }
+
+    toast.success("Product added successfully ");
+
+    // Reset form
     setProduct({
       name: "",
       brand: "",
       description: "",
-      price: "",
+      price: 0,
       category: "",
-      quantity: "",
+      quantity: 0,
       releaseDate: "",
       available: false,
     });
     setImage(null);
+
   } catch (error) {
-    console.error("Error adding product:", error.response || error);
-    if (error.response && error.response.data) {
-      toast.error(`Error: ${error.response.data}`);
-    } else {
-      toast.error("Error adding product");
-    }
+    console.error("Error adding product:", error);
+    toast.error("Error adding product");
   }
 };
 
@@ -205,6 +222,7 @@ formData.append("product", JSON.stringify(productData));
                         </label>
                         <input type = "file"
                         onChange={handleImageChange}
+                        accept = "image/*"
                          placeholder="upload image"
                          name = "imageUrl"
                          id = "imageUrl"

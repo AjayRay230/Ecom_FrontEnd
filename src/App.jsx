@@ -13,7 +13,7 @@ import RegistrationForm from './Components/RegistrationForm.jsx';
 import RemoveUser from "./Components/RemoveUser.jsx";
 import UserList from "./Components/UserList.jsx";
 import AddUser from './Components/AddUser.jsx';
-
+import SearchResults from './Components/SearchResults.jsx';
 import { ToastContainer } from 'react-toastify';
 import { toast } from 'react-toastify';
 function App() {
@@ -66,6 +66,7 @@ function App() {
         <Route path="product/:id" element={<Product />} />
         <Route path="/Cart" element={<CART />} />
         <Route path="/product/update/:id" element={<UpdateProduct />} />
+        <Route path = "/search" element = {<SearchResults/>}/>
         <Route
           path="/login"
           element={
