@@ -290,7 +290,7 @@ body {
   .navbar {
     flex-direction: column;
     align-items: flex-start;
-    display: none; /* hidden until toggled */
+    /* display: none; hidden until toggled */
     width: 100%;
     background: #1a1a1a;
     padding: 10px;
