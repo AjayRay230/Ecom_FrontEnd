@@ -281,23 +281,34 @@ body {
 .toggle-btn:hover{
   color:#ff9800;
 }
-@media(max-width:768px)
-{
-  .toggle-btn{
+/* Hide hamburger by default */
+.hamburger {
+  display: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: white;
+}
+
+/* Mobile view */
+@media(max-width: 768px) {
+  .hamburger {
     display: block;
     margin-left: auto;
   }
+
   .navbar {
+    display: none;
     flex-direction: column;
     align-items: flex-start;
-    /* display: none; hidden until toggled */
     width: 100%;
     background: #1a1a1a;
     padding: 10px;
   }
 
   .navbar.active {
-    display: flex;
+    display: flex; /* show menu when active */
   }
 
   .navbar a,
@@ -307,6 +318,7 @@ body {
     text-align: left;
   }
 }
+
 .user-name {
   margin-left: 8px;
   font-weight: 500;

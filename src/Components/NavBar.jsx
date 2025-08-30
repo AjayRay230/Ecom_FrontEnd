@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import { FaSearch, FaShoppingCart, FaMoon, FaSun, FaSignInAlt, FaCog, FaUser } from 'react-icons/fa';
+import { FaSearch, FaShoppingCart, FaMoon, FaSun, FaSignInAlt, FaCog, FaUser, FaBars } from 'react-icons/fa';
 import MyContext from "../Context/MyContext";
 import { useNavigate } from "react-router-dom";
 
@@ -16,7 +16,7 @@ function NavBar({ onSelectedCategory, onSearch }) {
     const [showSearchResults, setShowSearchResults] = useState(false);
     const [showUserMenu, setShowUserMenu] = useState(false);
     const [open, setOpen] = useState(false);
-
+    const[menuOpen,setMenuOpen] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -67,6 +67,11 @@ function NavBar({ onSelectedCategory, onSearch }) {
         <nav className='nav'>
             <header className='header'>
                 <div className='navbar'>
+                <button className="hamburger" 
+                onClick={()=>setMenuOpen(!menuOpen)}
+                >
+                    <FaBars/>
+                </button>
                     <a className='logo' href="/">Shopping.in Website</a>
                     <a href="/">Home</a>
 
