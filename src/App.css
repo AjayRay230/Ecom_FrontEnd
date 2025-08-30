@@ -282,24 +282,15 @@ body {
   color:#ff9800;
 }
 /* Hide hamburger by default */
-.hamburger {
-  display: none;
-  font-size: 1.5rem;
-  cursor: pointer;
-  background: none;
-  border: none;
-  color: white;
-}
-
-/* Mobile view */
 @media(max-width: 768px) {
   .hamburger {
     display: block;
     margin-left: auto;
+    z-index: 1100; /* keep above menu */
   }
 
   .navbar {
-    display: none;
+    display: none;  /* hide on mobile initially */
     flex-direction: column;
     align-items: flex-start;
     width: 100%;
@@ -308,7 +299,7 @@ body {
   }
 
   .navbar.active {
-    display: flex; /* show menu when active */
+    display: flex;  /* show when toggled */
   }
 
   .navbar a,
