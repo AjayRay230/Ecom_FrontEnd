@@ -55,7 +55,7 @@ const Home = ({ selectedCategory }) => {
       ) : (
         <div className="grid">
           {filteredProducts.length === 0 ? (
-            <h2>No Products Available</h2>
+            <h2>Please Login To View  Products</h2>
           ) : (
             filteredProducts.map((product) => {
               const { id, brand, name, price, available, imageUrl } = product;
@@ -63,7 +63,7 @@ const Home = ({ selectedCategory }) => {
                 <div
                   className="card"
                   key={id}
-                  onClick={() => navigate(`/product/${id}`)} // ✅ card click navigates
+                  onClick={() => navigate(`/product/${id}`)} 
                   style={{ cursor: "pointer" }}
                 >
                   <div className="card-body">
