@@ -290,7 +290,7 @@ body {
   }
 
   .navbar {
-    display: none;  /* hide on mobile initially */
+      display: none; /* hide on mobile initially  */
     flex-direction: column;
     align-items: flex-start;
     width: 100%;
