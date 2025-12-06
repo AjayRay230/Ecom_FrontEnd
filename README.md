@@ -1,6 +1,5 @@
 # React + Vite
 
-Sure! Here's the plain **README text** (no formatting markdown syntax):
 
 ---
 
